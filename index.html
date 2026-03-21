@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stellar Culture Journal 2027 — Go Deeper</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1A2744;
+  --dark: #2B2B29;
+  --med: #6B6A65;
+  --lt: #9E9D97;
+  --faint: #D8D6CE;
+  --cream: #FAF9F5;
+  --warm: #F9F6F1;
+  --gold: #C4A44A;
+  --blue: #2B6CB0;
+  --green: #0E7A5E;
+  --amber: #9A6B1A;
+  --purple: #5B4FC7;
+  --coral: #C44D2B;
+  --pink: #A63D6F;
+  --goals-green: #3E7B1A;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  color: var(--dark);
+  background: var(--cream);
+  line-height: 1.6;
+}
+
+/* Hero */
+.hero {
+  background: var(--navy);
+  color: white;
+  padding: 80px 24px 60px;
+  text-align: center;
+}
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.hero .year {
+  font-size: 18px;
+  color: var(--gold);
+  letter-spacing: 0.3em;
+  margin-bottom: 20px;
+}
+.hero .divider-line {
+  width: 80px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0 auto 20px;
+}
+.hero p {
+  font-size: 16px;
+  color: #AABBCC;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+.hero .values-row {
+  margin-top: 24px;
+  font-size: 14px;
+  color: #8899BB;
+  letter-spacing: 0.02em;
+}
+
+/* Nav */
+.quarter-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: white;
+  border-bottom: 1px solid #E5E3DC;
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  padding: 0;
+}
+.quarter-nav a {
+  flex: 1;
+  max-width: 200px;
+  text-align: center;
+  padding: 14px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--med);
+  transition: all 0.2s;
+  border-bottom: 3px solid transparent;
+}
+.quarter-nav a:hover { color: var(--navy); border-bottom-color: var(--gold); }
+.quarter-nav a.q1 { border-bottom-color: var(--navy); color: var(--navy); }
+
+/* Container */
+.container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+/* Quarter sections */
+.quarter-section {
+  padding: 60px 0 40px;
+}
+.quarter-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.quarter-header h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.quarter-header .dates {
+  font-size: 14px;
+  color: var(--lt);
+  margin-bottom: 8px;
+}
+.quarter-header .theme {
+  font-size: 15px;
+  font-style: italic;
+  color: var(--med);
+}
+
+/* Week cards */
+.week-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 16px;
+  border: 1px solid #E8E6DF;
+  transition: box-shadow 0.2s, transform 0.1s;
+  scroll-margin-top: 70px;
+}
+.week-card:hover {
+  box-shadow: 0 4px 20px rgba(26,39,68,0.08);
+  transform: translateY(-1px);
+}
+.week-card .wk-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.week-card .wk-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: white;
+  flex-shrink: 0;
+}
+.week-card .wk-info { flex: 1; }
+.week-card .wk-title {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--navy);
+  line-height: 1.3;
+}
+.week-card .wk-date {
+  font-size: 13px;
+  color: var(--lt);
+}
+.week-card .wk-tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+.week-card .wk-body {
+  font-size: 14px;
+  color: var(--med);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.week-card .wk-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.week-card .wk-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.link-video {
+  background: #EBF2FA;
+  color: #1A4971;
+}
+.link-video:hover { background: #D6E5F5; }
+.link-article {
+  background: #E6F5EF;
+  color: #064D3B;
+}
+.link-article:hover { background: #CCE8DC; }
+.link-foundation {
+  background: #FBEEF4;
+  color: #7A2850;
+}
+.link-foundation:hover { background: #F5D9E7; }
+
+/* Value colors */
+.bg-serve { background: var(--blue); }
+.bg-trust { background: var(--green); }
+.bg-own { background: var(--amber); }
+.bg-excel { background: var(--purple); }
+.bg-joy { background: var(--coral); }
+.bg-goals { background: var(--goals-green); }
+.bg-special { background: var(--pink); }
+
+.tag-serve { background: #EBF2FA; color: #1A4971; }
+.tag-trust { background: #E6F5EF; color: #064D3B; }
+.tag-own { background: #FDF5E6; color: #6B4A0F; }
+.tag-excel { background: #EEECFB; color: #3D3490; }
+.tag-joy { background: #FDF0EC; color: #8B3218; }
+.tag-goals { background: #EDF5E6; color: #2A5510; }
+.tag-special { background: #FBEEF4; color: #7A2850; }
+
+/* Share section */
+.share-section {
+  background: var(--navy);
+  color: white;
+  padding: 60px 24px;
+  text-align: center;
+}
+.share-section h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+.share-section p {
+  color: #AABBCC;
+  max-width: 500px;
+  margin: 0 auto 24px;
+}
+.share-section .share-btn {
+  display: inline-block;
+  padding: 14px 32px;
+  background: var(--gold);
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.1s;
+}
+.share-section .share-btn:hover { transform: scale(1.03); }
+
+/* Footer */
+.site-footer {
+  padding: 40px 24px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--lt);
+}
+.site-footer a { color: var(--med); text-decoration: none; }
+
+/* Special cards */
+.week-card.special-card {
+  border-left: 4px solid var(--pink);
+}
+.week-card.goals-card {
+  border-left: 4px solid var(--goals-green);
+}
+
+@media (max-width: 600px) {
+  .quarter-nav { font-size: 11px; }
+  .quarter-nav a { padding: 10px 6px; }
+  .week-card { padding: 18px 20px; }
+  .week-card .wk-links { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Culture Journal</h1>
+  <div class="year">2 0 2 7</div>
+  <div class="divider-line"></div>
+  <p>Welcome to the companion site for the Stellar Culture Journal. Scan any "Go Deeper" QR code in your journal to find videos, articles, and resources for that week's value.</p>
+  <div class="values-row">Serve First &nbsp;·&nbsp; Build Trust &nbsp;·&nbsp; Own It &nbsp;·&nbsp; Deliver Excellence &nbsp;·&nbsp; Spread Joy</div>
+</div>
+
+<nav class="quarter-nav">
+  <a href="#q1">Q1: Foundations</a>
+  <a href="#q2">Q2: Going Deeper</a>
+  <a href="#q3">Q3: Stretching</a>
+  <a href="#q4">Q4: Sustaining</a>
+  <a href="#share">Share Your Story</a>
+</nav>
+
+<div class="container">
+
+<!-- ============ Q1 ============ -->
+<section class="quarter-section" id="q1">
+<div class="quarter-header">
+  <h2>Q1: Foundations</h2>
+  <div class="dates">January — March 2027</div>
+  <div class="theme">Introducing each value and its core behavior</div>
+</div>
+
+<div class="week-card" id="w0">
+  <div class="wk-header">
+    <div class="wk-num bg-goals">0</div>
+    <div class="wk-info"><div class="wk-title">The Year Ahead</div><div class="wk-date">January 6</div></div>
+    <span class="wk-tag tag-goals">Kickoff</span>
+  </div>
+  <div class="wk-body">Set your word for 2027, your intentions, and your vision for the year. This week is about getting clear on who you want to become.</div>
+  <div class="wk-links">
+    <a class="link-article" href="https://stellarliving.com/the-heart-of-stellar-living-our-values-in-action/" target="_blank">📄 Our values in action</a>
+    <a class="link-video" href="https://youtube.com/@stellarliving" target="_blank">▶ Stellar YouTube</a>
+  </div>
+</div>
+
+<div class="week-card goals-card" id="w1">
+  <div class="wk-header">
+    <div class="wk-num bg-goals">1</div>
+    <div class="wk-info"><div class="wk-title">Q1 Rocks — Set Your Quarterly Goals</div><div class="wk-date">January 13</div></div>
+    <span class="wk-tag tag-goals">EOS Rocks</span>
+  </div>
+  <div class="wk-body">Use the EOS framework to set 3-7 measurable 90-day priorities. Good rocks are specific, measurable, achievable, and aligned.</div>
+  <div class="wk-links">
+    <a class="link-article" href="https://www.eosworldwide.com/blog/90-day-world" target="_blank">📄 EOS: The 90-day world</a>
+  </div>
+</div>
+
+<div class="week-card" id="w2">
+  <div class="wk-header">
+    <div class="wk-num bg-serve">2</div>
+    <div class="wk-info"><div class="wk-title">Serve First — The Vision</div><div class="wk-date">January 20</div></div>
+    <span class="wk-tag tag-serve">Serve First</span>
+  </div>
+  <div class="wk-body">Evrett Benton tells the story of helping an 87-year-old resident get ready for his move — showering him, shaving him, packing his belongings. Serve First means paying attention and choosing to respond.</div>
+  <div class="wk-links">
+    <a class="link-article" href="https://stellarliving.com/the-heart-of-stellar-living-our-values-in-action/" target="_blank">📄 Values in action</a>
+    <a class="link-video" href="https://youtube.com/@stellarliving" target="_blank">▶ Watch: What service means at Stellar</a>
+  </div>
+</div>
+
+<div class="week-card" id="w3">
+  <div class="wk-header">
+    <div class="wk-num bg-serve">3</div>
+    <div class="wk-info"><div class="wk-title">Serve First — Anticipating Needs</div><div class="wk-date">January 27</div></div>
+    <span class="wk-tag tag-serve">Serve First</span>
+  </div>
+  <div class="wk-body">Joan smiled: "You know me too well." The best service happens before anyone has to ask. This week, we practice seeing what others need.</div>
+  <div class="wk-links">
+    <a class="link-article" href="https://stellarliving.com/careers/" target="_blank">📄 Why Stellar's frontline matters</a>
+  </div>
+</div>
+
+<div class="week-card" id="w4">
+  <div class="wk-header">
+    <div class="wk-num bg-trust">4</div>
+    <div class="wk-info"><div class="wk-title">Build Trust — The Vision</div><div class="wk-date">February 3</div></div>
+    <span class="wk-tag tag-trust">Build Trust</span>
+  </div>
+  <div class="wk-body">Trust is a pattern, not a feeling. It's the accumulated evidence that someone does what they say, tells the truth, and acts with integrity.</div>
+  <div class="wk-links">
+    <a class="link-article" href="https://stellarliving.com/the-heart-of-stellar-living-our-values-in-action/" target="_blank">📄 Integrity at Stellar</a>
+  </div>
+</div>
+
+<div class="week-card special-card" id="w5">
+  <div class="wk-header">
+    <div class="wk-num bg-special">5</div>
+    <div class="wk-info"><div class="wk-title">Valentine's Day — A Day of Giving</div><div class="wk-date">February 10</div></div>
+    <span class="wk-tag tag-special">Special Week</span>
+  </div>
+  <div class="wk-body">This week we reframe Valentine's Day as a Day of Giving — not romantic giving, but the kind that builds culture: generous, intentional, and personal.</div>
+  <div class="wk-links">
+    <a class="link-foundation" href="https://stellarliving.com/foundation/" target="_blank">💝 Stellar Living Foundation</a>
+    <a class="link-foundation" href="https://givebutter.com/stellar-living-foundation" target="_blank">💝 Donate</a>
+  </div>
+</div>
+
+<div class="week-card" id="w6">
+  <div class="wk-header">
+    <div class="wk-num bg-own">6</div>
+    <div class="wk-info"><div class="wk-title">Own It — The Vision</div><div class="wk-date">February 17</div></div>
+    <span class="wk-tag tag-own">Own It</span>
+  </div>
+  <div class="wk-body">Ownership changes everything. When someone owns their role — not just performs it — they stop waiting for permission and start solving problems.</div>
+</div>
+
+<div class="week-card" id="w7">
+  <div class="wk-header">
+    <div class="wk-num bg-own">7</div>
+    <div class="wk-info"><div class="wk-title">Own It — Think Above the Line</div><div class="wk-date">February 24</div></div>
+    <span class="wk-tag tag-own">Own It</span>
+  </div>
+  <div class="wk-body">BCD: Blaming, Complaining, Defending. We don't BCD. We own it, solve it, and improve it. This week: catch yourself going below the line.</div>
+</div>
+
+<div class="week-card" id="w8">
+  <div class="wk-header">
+    <div class="wk-num bg-excel">8</div>
+    <div class="wk-info"><div class="wk-title">Deliver Excellence — The Vision</div><div class="wk-date">March 3</div></div>
+    <span class="wk-tag tag-excel">Excellence</span>
+  </div>
+  <div class="wk-body">Excellence is not perfection. It's a choice to consistently do your best work — and then find ways to make it better.</div>
+</div>
+
+<div class="week-card" id="w9">
+  <div class="wk-header">
+    <div class="wk-num bg-excel">9</div>
+    <div class="wk-info"><div class="wk-title">Deliver Excellence — The Details Residents Notice</div><div class="wk-date">March 10</div></div>
+    <span class="wk-tag tag-excel">Excellence</span>
+  </div>
+  <div class="wk-body">Residents notice everything. The pillow that's crooked. The light that flickers. The team member who remembers how they take their coffee.</div>
+</div>
+
+<div class="week-card" id="w10">
+  <div class="wk-header">
+    <div class="wk-num bg-joy">10</div>
+    <div class="wk-info"><div class="wk-title">Spread Joy — The Vision</div><div class="wk-date">March 17</div></div>
+    <span class="wk-tag tag-joy">Spread Joy</span>
+  </div>
+  <div class="wk-body">Joy is Stellar's secret weapon. Not happiness — joy. A choice to bring light into a room and find the good in a hard situation.</div>
+</div>
+
+<div class="week-card special-card" id="w11">
+  <div class="wk-header">
+    <div class="wk-num bg-special">11</div>
+    <div class="wk-info"><div class="wk-title">World Down Syndrome Day</div><div class="wk-date">March 24</div></div>
+    <span class="wk-tag tag-special">Special Week</span>
+  </div>
+  <div class="wk-body">March 21 is World Down Syndrome Day. At Stellar, adults with special needs hold cherished roles. Their presence is central to who we are.</div>
+  <div class="wk-links">
+    <a class="link-article" href="https://stellarliving.com/milos-creamery-making-a-difference-for-people-with-intellectual-disabilities/" target="_blank">📄 Milo's Creamery: Making a difference</a>
+    <a class="link-foundation" href="https://stellarliving.com/foundation/" target="_blank">💝 Milo's Project</a>
+  </div>
+</div>
+
+<div class="week-card" id="w12">
+  <div class="wk-header">
+    <div class="wk-num bg-joy">12</div>
+    <div class="wk-info"><div class="wk-title">Spread Joy — Celebrate Everything</div><div class="wk-date">March 31</div></div>
+    <span class="wk-tag tag-joy">Spread Joy</span>
+  </div>
+  <div class="wk-body">Recognize effort and progress, not just results. Be generous with appreciation. Create moments of fun and connection. Celebrate often.</div>
+</div>
+
+<div class="week-card goals-card" id="w13">
+  <div class="wk-header">
+    <div class="wk-num bg-goals">13</div>
+    <div class="wk-info"><div class="wk-title">Q1 Commitment Week</div><div class="wk-date">April 7</div></div>
+    <span class="wk-tag tag-goals">Review</span>
+  </div>
+  <div class="wk-body">Score your Q1 rocks. Reflect on your personal actions. Celebrate progress. Prepare for Q2.</div>
+</div>
+</section>
+
+<!-- ============ Q2 ============ -->
+<section class="quarter-section" id="q2">
+<div class="quarter-header">
+  <h2>Q2: Going Deeper</h2>
+  <div class="dates">April — June 2027</div>
+  <div class="theme">Harder behaviors, real-world friction</div>
+</div>
+
+<div class="week-card goals-card" id="w14"><div class="wk-header"><div class="wk-num bg-goals">14</div><div class="wk-info"><div class="wk-title">Q2 Rocks — Set Your Quarterly Goals</div><div class="wk-date">April 14</div></div><span class="wk-tag tag-goals">EOS Rocks</span></div><div class="wk-body">New quarter, new rocks. What matters most in the next 90 days?</div></div>
+
+<div class="week-card" id="w15"><div class="wk-header"><div class="wk-num bg-serve">15</div><div class="wk-info"><div class="wk-title">Serve First — Connecting as People, Not Tasks</div><div class="wk-date">April 21</div></div><span class="wk-tag tag-serve">Serve First</span></div><div class="wk-body">Residents don't remember tasks. They remember how they felt. This week, we slow down to see the person.</div></div>
+
+<div class="week-card" id="w16"><div class="wk-header"><div class="wk-num bg-serve">16</div><div class="wk-info"><div class="wk-title">Serve First — Stepping In Without Being Asked</div><div class="wk-date">April 28</div></div><span class="wk-tag tag-serve">Serve First</span></div><div class="wk-body">Four words that never build culture: "That's not my job." This week, we explore what it means to step in.</div></div>
+
+<div class="week-card special-card" id="w17"><div class="wk-header"><div class="wk-num bg-special">17</div><div class="wk-info"><div class="wk-title">Nurses Week — Honoring the Heart of Senior Care</div><div class="wk-date">May 5</div></div><span class="wk-tag tag-special">Special Week</span></div><div class="wk-body">National Nurses Week honors the people who carry the heaviest load in senior living with extraordinary compassion.</div></div>
+
+<div class="week-card" id="w18"><div class="wk-header"><div class="wk-num bg-trust">18</div><div class="wk-info"><div class="wk-title">Build Trust — Honesty When It's Uncomfortable</div><div class="wk-date">May 12</div></div><span class="wk-tag tag-trust">Build Trust</span></div><div class="wk-body">Uncomfortable honesty is the currency of deep trust. When someone knows you'll tell them the truth, they never wonder what you're not saying.</div></div>
+
+<div class="week-card" id="w19"><div class="wk-header"><div class="wk-num bg-trust">19</div><div class="wk-info"><div class="wk-title">Build Trust — Repairing Broken Trust</div><div class="wk-date">May 19</div></div><span class="wk-tag tag-trust">Build Trust</span></div><div class="wk-body">Acknowledge. Own it. Change. Trust rebuilt is often stronger than trust never tested.</div></div>
+
+<div class="week-card special-card" id="w20"><div class="wk-header"><div class="wk-num bg-special">20</div><div class="wk-info"><div class="wk-title">Memorial Day — Service, Sacrifice, and Gratitude</div><div class="wk-date">May 26</div></div><span class="wk-tag tag-special">Special Week</span></div><div class="wk-body">We honor those who gave everything in service to others and connect their legacy to the service we practice daily.</div></div>
+
+<div class="week-card" id="w21"><div class="wk-header"><div class="wk-num bg-own">21</div><div class="wk-info"><div class="wk-title">Own It — Owning Mistakes</div><div class="wk-date">June 2</div></div><span class="wk-tag tag-own">Own It</span></div><div class="wk-body">Not "I'm sorry, but..." Just: "I got that wrong. Here's what I'll do differently."</div></div>
+
+<div class="week-card" id="w22"><div class="wk-header"><div class="wk-num bg-own">22</div><div class="wk-info"><div class="wk-title">Own It — Initiative Without Being Asked</div><div class="wk-date">June 9</div></div><span class="wk-tag tag-own">Own It</span></div><div class="wk-body">Initiative requires awareness (seeing what needs doing) and courage (doing it without permission).</div></div>
+
+<div class="week-card" id="w23"><div class="wk-header"><div class="wk-num bg-excel">23</div><div class="wk-info"><div class="wk-title">Deliver Excellence — Systems and Processes</div><div class="wk-date">June 16</div></div><span class="wk-tag tag-excel">Excellence</span></div><div class="wk-body">Individual effort alone doesn't create consistent excellence. Systems do. Build processes that make the right thing easy.</div></div>
+
+<div class="week-card" id="w24"><div class="wk-header"><div class="wk-num bg-excel">24</div><div class="wk-info"><div class="wk-title">Deliver Excellence — Under Pressure</div><div class="wk-date">June 23</div></div><span class="wk-tag tag-excel">Excellence</span></div><div class="wk-body">When pressure hits, you don't rise to the occasion. You fall to the level of your training.</div></div>
+
+<div class="week-card" id="w25"><div class="wk-header"><div class="wk-num bg-joy">25</div><div class="wk-info"><div class="wk-title">Spread Joy — Being a Bucket Filler</div><div class="wk-date">June 30</div></div><span class="wk-tag tag-joy">Spread Joy</span></div><div class="wk-body">Every interaction either fills someone's bucket or drains it. This week, fill five buckets intentionally.</div></div>
+
+<div class="week-card goals-card" id="w26"><div class="wk-header"><div class="wk-num bg-goals">26</div><div class="wk-info"><div class="wk-title">Q2 Commitment Week</div><div class="wk-date">July 7</div></div><span class="wk-tag tag-goals">Review</span></div><div class="wk-body">Score your Q2 rocks. Deepen your personal actions. Celebrate what's working.</div></div>
+</section>
+
+<!-- ============ Q3 ============ -->
+<section class="quarter-section" id="q3">
+<div class="quarter-header">
+  <h2>Q3: Stretching</h2>
+  <div class="dates">July — September 2027</div>
+  <div class="theme">Edge cases, discomfort, growth</div>
+</div>
+
+<div class="week-card special-card" id="w27"><div class="wk-header"><div class="wk-num bg-special">27</div><div class="wk-info"><div class="wk-title">Independence Week — Freedom, Gratitude, and What We're Building</div><div class="wk-date">July 14</div></div><span class="wk-tag tag-special">Special Week</span></div><div class="wk-body">Freedom in senior living means residents can choose how they spend their day and team members can speak up without fear.</div></div>
+
+<div class="week-card goals-card" id="w28"><div class="wk-header"><div class="wk-num bg-goals">28</div><div class="wk-info"><div class="wk-title">Q3 Rocks — Set Your Quarterly Goals</div><div class="wk-date">July 21</div></div><span class="wk-tag tag-goals">EOS Rocks</span></div><div class="wk-body">The second half of the year. What needs to happen before October?</div></div>
+
+<div class="week-card" id="w29"><div class="wk-header"><div class="wk-num bg-serve">29</div><div class="wk-info"><div class="wk-title">Serve First — Kindness Under Pressure</div><div class="wk-date">July 28</div></div><span class="wk-tag tag-serve">Serve First</span></div><div class="wk-body">Pressure doesn't create character. It reveals it. This week, we practice choosing our words when it matters most.</div></div>
+
+<div class="week-card" id="w30"><div class="wk-header"><div class="wk-num bg-serve">30</div><div class="wk-info"><div class="wk-title">Serve First — Greeting with Warmth</div><div class="wk-date">August 4</div></div><span class="wk-tag tag-serve">Serve First</span></div><div class="wk-body">Eye contact, their name, and something that says "I see you." That's a genuine greeting. No script required.</div></div>
+
+<div class="week-card" id="w31"><div class="wk-header"><div class="wk-num bg-trust">31</div><div class="wk-info"><div class="wk-title">Build Trust — Trust Across Teams</div><div class="wk-date">August 11</div></div><span class="wk-tag tag-trust">Build Trust</span></div><div class="wk-body">When trust breaks between teams, residents feel it. Someone has to cross the line and build a bridge.</div></div>
+
+<div class="week-card" id="w32"><div class="wk-header"><div class="wk-num bg-trust">32</div><div class="wk-info"><div class="wk-title">Build Trust — Assuming Positive Intent</div><div class="wk-date">August 18</div></div><span class="wk-tag tag-trust">Build Trust</span></div><div class="wk-body">Replace "They did this because..." with "Help me understand why..." Give people the benefit of the doubt.</div></div>
+
+<div class="week-card" id="w33"><div class="wk-header"><div class="wk-num bg-own">33</div><div class="wk-info"><div class="wk-title">Own It — Owning Your Growth</div><div class="wk-date">August 25</div></div><span class="wk-tag tag-own">Own It</span></div><div class="wk-body">Your growth is your responsibility. Not your manager's. Not HR's. Yours. That's actually liberating.</div></div>
+
+<div class="week-card special-card" id="w34"><div class="wk-header"><div class="wk-num bg-special">34</div><div class="wk-info"><div class="wk-title">Labor Day — The Dignity of Work</div><div class="wk-date">September 1</div></div><span class="wk-tag tag-special">Special Week</span></div><div class="wk-body">We celebrate the invisible work that keeps our communities running — and the people who do it.</div></div>
+
+<div class="week-card" id="w35"><div class="wk-header"><div class="wk-num bg-own">35</div><div class="wk-info"><div class="wk-title">Own It — When Ownership Feels Heavy</div><div class="wk-date">September 8</div></div><span class="wk-tag tag-own">Own It</span></div><div class="wk-body">Resentment is the shadow side of ownership. The solution: asking for help and letting go of what isn't yours to carry.</div></div>
+
+<div class="week-card" id="w36"><div class="wk-header"><div class="wk-num bg-excel">36</div><div class="wk-info"><div class="wk-title">Deliver Excellence — Raising the Bar Together</div><div class="wk-date">September 15</div></div><span class="wk-tag tag-excel">Excellence</span></div><div class="wk-body">Individual excellence is powerful. Collective excellence is transformational. The best teams don't have one star — they have a standard.</div></div>
+
+<div class="week-card" id="w37"><div class="wk-header"><div class="wk-num bg-excel">37</div><div class="wk-info"><div class="wk-title">Deliver Excellence — Pursuing Mastery</div><div class="wk-date">September 22</div></div><span class="wk-tag tag-excel">Excellence</span></div><div class="wk-body">Mastery is the decision to get better at something long after you've gotten good at it.</div></div>
+
+<div class="week-card" id="w38"><div class="wk-header"><div class="wk-num bg-joy">38</div><div class="wk-info"><div class="wk-title">Spread Joy — Approaching Challenges with Optimism</div><div class="wk-date">September 29</div></div><span class="wk-tag tag-joy">Spread Joy</span></div><div class="wk-body">Optimism isn't pretending everything is fine. It's believing good outcomes are possible — and acting accordingly.</div></div>
+
+<div class="week-card" id="w39"><div class="wk-header"><div class="wk-num bg-joy">39</div><div class="wk-info"><div class="wk-title">Spread Joy — Giving Back</div><div class="wk-date">October 6</div></div><span class="wk-tag tag-joy">Spread Joy</span></div><div class="wk-body">We extend our care beyond our walls through the Stellar Living Foundation.</div><div class="wk-links"><a class="link-foundation" href="https://stellarliving.com/stellar-senior-living-foundation-helping-us-give/" target="_blank">📄 Foundation: Helping us give</a><a class="link-foundation" href="https://stellarliving.com/testimonials-from-the-stellar-senior-living-foundation/" target="_blank">💝 Foundation testimonials</a></div></div>
+
+<div class="week-card goals-card" id="w40"><div class="wk-header"><div class="wk-num bg-goals">40</div><div class="wk-info"><div class="wk-title">Q3 Commitment Week</div><div class="wk-date">October 13</div></div><span class="wk-tag tag-goals">Review</span></div><div class="wk-body">Score your Q3 rocks. Refine your personal actions for the final quarter.</div></div>
+</section>
+
+<!-- ============ Q4 ============ -->
+<section class="quarter-section" id="q4">
+<div class="quarter-header">
+  <h2>Q4: Sustaining</h2>
+  <div class="dates">October — December 2027</div>
+  <div class="theme">Legacy, consistency, multiplying in others</div>
+</div>
+
+<div class="week-card goals-card" id="w41"><div class="wk-header"><div class="wk-num bg-goals">41</div><div class="wk-info"><div class="wk-title">Q4 Rocks — Set Your Quarterly Goals</div><div class="wk-date">October 20</div></div><span class="wk-tag tag-goals">EOS Rocks</span></div><div class="wk-body">The final quarter. What will define how you close out the year?</div></div>
+
+<div class="week-card" id="w42"><div class="wk-header"><div class="wk-num bg-serve">42</div><div class="wk-info"><div class="wk-title">Serve First — Boundaries and Burnout</div><div class="wk-date">October 27</div></div><span class="wk-tag tag-serve">Serve First</span></div><div class="wk-body">Serve First doesn't mean serve until you break. This week, we explore sustainable service.</div></div>
+
+<div class="week-card" id="w43"><div class="wk-header"><div class="wk-num bg-serve">43</div><div class="wk-info"><div class="wk-title">Serve First — Making Service Your Legacy</div><div class="wk-date">November 3</div></div><span class="wk-tag tag-serve">Serve First</span></div><div class="wk-body">When people talk about you after you've moved on, what do you want them to say about how you served?</div></div>
+
+<div class="week-card" id="w44"><div class="wk-header"><div class="wk-num bg-trust">44</div><div class="wk-info"><div class="wk-title">Build Trust — Becoming Someone Others Confide In</div><div class="wk-date">November 10</div></div><span class="wk-tag tag-trust">Build Trust</span></div><div class="wk-body">People who earn deep trust listen without fixing, keep confidences, and never use someone's vulnerability against them.</div></div>
+
+<div class="week-card" id="w45"><div class="wk-header"><div class="wk-num bg-trust">45</div><div class="wk-info"><div class="wk-title">Build Trust — Trust as Your Leadership Legacy</div><div class="wk-date">November 17</div></div><span class="wk-tag tag-trust">Build Trust</span></div><div class="wk-body">Trust isn't just personal. It's contagious. The way you trust others teaches them how to trust.</div></div>
+
+<div class="week-card special-card" id="w46"><div class="wk-header"><div class="wk-num bg-special">46</div><div class="wk-info"><div class="wk-title">Thanksgiving — Gratitude as a Way of Life</div><div class="wk-date">November 24</div></div><span class="wk-tag tag-special">Special Week</span></div><div class="wk-body">People who practice gratitude are more resilient, more connected, and more satisfied with their work.</div></div>
+
+<div class="week-card" id="w47"><div class="wk-header"><div class="wk-num bg-own">47</div><div class="wk-info"><div class="wk-title">Own It — Multiplying Ownership in Others</div><div class="wk-date">December 1</div></div><span class="wk-tag tag-own">Own It</span></div><div class="wk-body">If you're the only person who takes initiative, you're a hero. If you help ten people take initiative, you've changed a culture.</div></div>
+
+<div class="week-card" id="w48"><div class="wk-header"><div class="wk-num bg-own">48</div><div class="wk-info"><div class="wk-title">Own It — When No One's Watching</div><div class="wk-date">December 8</div></div><span class="wk-tag tag-own">Own It</span></div><div class="wk-body">Character is who you are in the dark. Ownership is a character trait, not a performance.</div></div>
+
+<div class="week-card" id="w49"><div class="wk-header"><div class="wk-num bg-excel">49</div><div class="wk-info"><div class="wk-title">Deliver Excellence — Leave It Better Than You Found It</div><div class="wk-date">December 15</div></div><span class="wk-tag tag-excel">Excellence</span></div><div class="wk-body">The room you cleaned. The process you followed. The conversation you had. Leave everything better.</div><div class="wk-links"><a class="link-article" href="https://stellarliving.com/the-stellar-living-foundation-leaving-a-legacy/" target="_blank">📄 Leaving a legacy</a></div></div>
+
+<div class="week-card special-card" id="w50"><div class="wk-header"><div class="wk-num bg-special">50</div><div class="wk-info"><div class="wk-title">Christmas — The Gift of Presence and Purpose</div><div class="wk-date">December 22</div></div><span class="wk-tag tag-special">Special Week</span></div><div class="wk-body">The greatest gift we can offer each other isn't wrapped. It's presence. Being fully here.</div></div>
+
+<div class="week-card" id="w51"><div class="wk-header"><div class="wk-num bg-joy">51</div><div class="wk-info"><div class="wk-title">Spread Joy — Year in Review</div><div class="wk-date">December 29</div></div><span class="wk-tag tag-joy">Spread Joy</span></div><div class="wk-body">You did this five minutes at a time. And it added up. The future isn't just bright at Stellar — it's brilliant.</div><div class="wk-links"><a class="link-article" href="https://stellarliving.com/the-heart-of-stellar-living-our-values-in-action/" target="_blank">📄 Our values in action</a><a class="link-video" href="https://youtube.com/@stellarliving" target="_blank">▶ Stellar YouTube</a></div></div>
+</section>
+
+</div><!-- container -->
+
+<!-- Share section -->
+<section class="share-section" id="share">
+  <h2>Share Your Story</h2>
+  <p>We want to hear how you're living out Stellar's values. Your story could inspire someone in another community across the country.</p>
+  <a class="share-btn" href="/cdn-cgi/l/email-protection#45232a302b2124312c2a2b0536312029292437292c332c2b226b262a287a3630272f20263178083c6506302931303720650f2a30372b24296516312a373c63272a213c780d2c64650c622165292c2e2065312a65362d243720652465282a28202b316523372a2865283c6506302931303720650f2a30372b2429652f2a30372b203c6b6b6b">Share Your Story →</a>
+</section>
+
+<footer class="site-footer">
+  <p>Stellar Senior Living · <a href="https://stellarliving.com">stellarliving.com</a> · <a href="https://stellarliving.com/foundation/">Stellar Living Foundation</a></p>
+  <p style="margin-top: 8px;">Culture Journal 2027 — Serve First · Build Trust · Own It · Deliver Excellence · Spread Joy</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Smooth scroll for nav links
+document.querySelectorAll('.quarter-nav a').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+
+// Highlight current quarter in nav on scroll
+const sections = document.querySelectorAll('.quarter-section, .share-section');
+const navLinks = document.querySelectorAll('.quarter-nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.remove('q1');
+    if (a.getAttribute('href') === '#' + current) a.classList.add('q1');
+  });
+});
+
+/
