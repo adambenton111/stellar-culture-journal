@@ -710,7 +710,17 @@ footer .vals { margin-top:8px; color:#8a8fa0; font-size:.78rem; letter-spacing:.
   <div class="vals">CULTURE JOURNAL 2027 — SERVE FIRST · BUILD TRUST · OWN IT · DELIVER EXCELLENCE · SPREAD JOY — <em>"Together, we can do more!"</em></div>
 </footer>
 
+<div class="modal" id="modal" hidden>
+  <div class="modal-back"></div>
+  <div class="modal-panel">
+    <button class="modal-x" type="button" aria-label="Close">×</button>
+    <button class="modal-share" type="button" id="modal-share">⤴ Share this week</button>
+    <div class="modal-body"></div>
+  </div>
+</div>
+
 <script>
+function __init() {
 /* ---- Current week logic ---- */
 const WEEK1 = new Date(2027, 0, 4);           // Monday, Jan 4 2027
 const params = new URLSearchParams(location.search);
@@ -803,14 +813,8 @@ window.addEventListener('scroll', () => {
   sections.forEach(s => { if (window.scrollY >= s.offsetTop - 130) current = s.id; });
   navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
 });
+}
+if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', __init); } else { __init(); }
 </script>
-<div class="modal" id="modal" hidden>
-  <div class="modal-back"></div>
-  <div class="modal-panel">
-    <button class="modal-x" type="button" aria-label="Close">×</button>
-    <button class="modal-share" type="button" id="modal-share">⤴ Share this week</button>
-    <div class="modal-body"></div>
-  </div>
-</div>
 </body>
 </html>
