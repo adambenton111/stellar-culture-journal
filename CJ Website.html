@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stellar Culture Journal 2027 — Go Deeper</title>
+<meta name="description" content="Companion site for the Stellar Culture Journal 2027. Scan a QR code in your journal to go deeper on each week's value.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#d9a335; --gold-deep:#b98d2f; --gold-dark:#8a6510; --cream:#f5eedd; --cream-deep:#efe4c8;
+  --paper:#fbf9f4; --ink:#1f2530; --text:#33394a; --muted:#757a88; --line:#e7e0cd;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Indivisible','Schibsted Grotesk',-apple-system,sans-serif; background:var(--paper); color:var(--text); line-height:1.55; }
+.gothic { font-family:'Century Gothic','Poppins',sans-serif; }
+
+/* ---------- Hero: v4 title-page treatment ---------- */
+.hero { background:var(--cream); position:relative; overflow:hidden; padding:64px 24px 0; text-align:center; }
+.hero .burst { position:absolute; width:720px; height:720px; color:var(--gold); opacity:.9; top:-160px; left:50%; transform:translateX(-50%); z-index:0; }
+.hero-frame { position:relative; z-index:1; max-width:520px; margin:0 auto; background:var(--cream); border:2px solid var(--gold); outline:6px solid var(--cream); outline-offset:0; box-shadow:0 0 0 8px var(--gold-deep) inset; padding:44px 34px 36px; }
+.hero-frame { box-shadow:none; border:2px solid var(--gold-deep); }
+.hero .year { font-family:'Poppins',sans-serif; font-weight:600; letter-spacing:.45em; font-size:.95rem; color:var(--ink); }
+.hero h1 { font-family:'Source Serif 4',Georgia,serif; font-weight:700; font-size:clamp(2.4rem,6vw,3.4rem); color:var(--ink); line-height:1.05; margin:.25em 0 .35em; }
+.hero .tag { font-family:'Poppins',sans-serif; font-weight:600; font-size:.8rem; letter-spacing:.18em; color:var(--ink); }
+.hero .belongs { margin-top:22px; background:var(--gold); color:#fff; font-family:'Poppins',sans-serif; font-weight:600; font-size:.72rem; letter-spacing:.25em; padding:8px 0; }
+.hero p.lead { position:relative; z-index:1; max-width:640px; margin:26px auto 0; color:var(--text); font-size:1rem; }
+.hero .waves { display:block; width:100%; height:72px; margin-top:40px; position:relative; z-index:1; }
+
+/* ---------- Nav ---------- */
+nav.quarter-nav { position:sticky; top:0; z-index:50; background:#fff; border-bottom:1px solid var(--line);
+  display:flex; justify-content:center; gap:4px; padding:10px 12px; flex-wrap:wrap; }
+nav.quarter-nav a { text-decoration:none; color:var(--ink); font-family:'Poppins',sans-serif; font-weight:600; font-size:.78rem; letter-spacing:.12em;
+  padding:8px 15px; border-radius:999px; }
+nav.quarter-nav a:hover { background:var(--cream); }
+nav.quarter-nav a.active { background:var(--gold); color:#fff; }
+nav.quarter-nav a.share-btn { border:1.5px solid var(--gold-deep); color:var(--gold-dark); }
+nav.quarter-nav a.share-btn:hover { background:var(--gold); border-color:var(--gold); color:#fff; }
+
+/* ---------- How to ---------- */
+.howto { max-width:900px; margin:32px auto 0; padding:0 24px; }
+.howto .box { background:var(--cream); border-radius:10px; padding:15px 20px; font-size:.9rem; color:#5c4d24; }
+.howto b { color:#3f3312; font-family:'Poppins',sans-serif; font-size:.78rem; letter-spacing:.1em; }
+
+/* ---------- Quarter sections ---------- */
+.quarter { max-width:1080px; margin:0 auto; padding:64px 24px 8px; }
+.q-head { text-align:center; margin-bottom:34px; }
+.q-burst-wrap { position:relative; display:inline-block; padding:46px 40px; }
+.q-burst-wrap .burst { position:absolute; inset:0; width:100%; height:100%; color:var(--gold); }
+.q-badge { position:relative; background:var(--cream); border:1.5px solid var(--gold-deep); padding:26px 44px; min-width:260px; }
+.q-num { font-family:'Poppins',sans-serif; font-weight:600; font-size:.72rem; letter-spacing:.3em; color:var(--ink); }
+.q-bar { width:34px; height:2px; background:var(--gold); margin:10px auto; }
+.q-badge h2 { font-family:'Poppins',sans-serif; font-weight:500; font-size:1.9rem; letter-spacing:.32em; margin-right:-.32em; color:var(--gold-deep); }
+.q-badge p { font-size:.85rem; color:var(--text); max-width:240px; margin:0 auto; }
+.q-dates { font-family:'Poppins',sans-serif; font-weight:600; color:var(--gold-dark); font-size:.75rem; letter-spacing:.22em; text-transform:uppercase; margin-top:10px; }
+
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(305px,1fr)); gap:18px; }
+.week { background:#fff; border:1px solid var(--line); border-radius:10px; padding:18px 20px 12px;
+  display:flex; flex-direction:column; gap:9px; }
+.wk-head { display:flex; align-items:baseline; justify-content:space-between; }
+.wk-date { font-family:'Poppins',sans-serif; font-weight:700; color:var(--ink); font-size:.95rem; }
+.wk-day { font-family:'Poppins',sans-serif; font-weight:600; font-size:.68rem; letter-spacing:.22em; color:var(--gold-deep); }
+.week h3 { font-size:1.02rem; color:var(--ink); font-weight:700; line-height:1.32; }
+.week p { font-size:.89rem; }
+.wk-links { display:flex; flex-direction:column; gap:6px; padding-top:2px; }
+.wk-link { font-size:.83rem; font-weight:600; text-decoration:none; color:var(--gold-dark);
+  border:1.2px solid var(--gold); border-radius:9px; padding:8px 12px; background:#fffdf7; }
+.wk-link:hover { background:var(--gold); color:#fff; }
+.wk-link.pending { color:var(--muted); border-style:dashed; font-style:italic; cursor:default; }
+.wk-link.pending:hover { background:#fffdf7; color:var(--muted); }
+.wk-foot { margin-top:auto; display:flex; justify-content:space-between; align-items:center; border-top:1.5px dotted var(--gold); padding-top:8px;
+  font-family:'Poppins',sans-serif; font-weight:600; font-size:.62rem; letter-spacing:.22em; color:var(--muted); }
+.wk-val { color:var(--gold-deep); display:flex; align-items:center; gap:6px; }
+.wk-val .ic { font-size:.85rem; }
+
+/* ---------- Share ---------- */
+.share-section { position:relative; background:var(--cream); margin-top:72px; padding:60px 24px 70px; text-align:center; overflow:hidden; }
+.share-section .waves { position:absolute; top:0; left:0; width:100%; height:56px; transform:scaleY(-1); }
+.share-section h2 { font-family:'Poppins',sans-serif; font-weight:500; letter-spacing:.24em; font-size:1.5rem; color:var(--gold-deep); margin-top:30px; }
+.share-section .g-rule { height:2px; width:44px; background:var(--gold); margin:14px auto 16px; }
+.share-section p { max-width:560px; margin:0 auto 26px; }
+.share-actions { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+.share-actions a { text-decoration:none; font-family:'Poppins',sans-serif; font-weight:600; letter-spacing:.06em; padding:13px 26px; border-radius:999px; font-size:.9rem; }
+.share-actions a.primary { background:var(--gold); color:#fff; }
+.share-actions a.primary:hover { background:var(--gold-deep); }
+.share-actions a.secondary { border:2px solid var(--gold-deep); color:var(--gold-dark); }
+.share-actions a.secondary:hover { background:var(--gold-deep); color:#fff; }
+
+footer { background:var(--ink); color:#b9bdc9; text-align:center; padding:32px 24px; font-size:.85rem; }
+footer a { color:var(--gold); text-decoration:none; }
+footer .vals { margin-top:8px; color:#8a8fa0; font-size:.78rem; letter-spacing:.06em; }
+
+@media (max-width:640px) {
+  .grid { grid-template-columns:1fr; }
+  .hero .burst { width:520px; height:520px; top:-120px; }
+  .q-badge h2 { font-size:1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg class="burst" viewBox="0 0 100 100" aria-hidden="true"><g fill="currentColor"><circle cx="50" cy="50" r="7"/>
+<g id="r"><path d="M48 38 L50 12 L52 38 Z"/></g>
+<use href="#r" transform="rotate(30 50 50)"/><use href="#r" transform="rotate(60 50 50)"/><use href="#r" transform="rotate(90 50 50)"/><use href="#r" transform="rotate(120 50 50)"/><use href="#r" transform="rotate(150 50 50)"/><use href="#r" transform="rotate(180 50 50)"/><use href="#r" transform="rotate(210 50 50)"/><use href="#r" transform="rotate(240 50 50)"/><use href="#r" transform="rotate(270 50 50)"/><use href="#r" transform="rotate(300 50 50)"/><use href="#r" transform="rotate(330 50 50)"/></g></svg>
+  <div class="hero-frame">
+    <div class="year">2 0 2 7</div>
+    <h1>Culture<br>Journal</h1>
+    <div class="tag">52 WEEKS &nbsp;|&nbsp; 5 VALUES &nbsp;|&nbsp; 5 MINUTES A DAY</div>
+    <div class="belongs">THE COMPANION SITE — GO DEEPER</div>
+  </div>
+  <p class="lead">Scan any QR code in your journal — or find your week below — for videos, articles, forms, and Foundation resources that go deeper on that week's value.</p>
+  <svg class="waves" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
+<path fill="#f3e3bb" d="M0,55 C200,25 420,80 640,52 C860,26 1040,70 1200,44 L1200,90 L0,90 Z"/>
+<path fill="#e8c87f" d="M0,68 C240,42 460,88 700,62 C920,40 1080,78 1200,58 L1200,90 L0,90 Z"/>
+<path fill="#d9a335" d="M0,80 C260,60 500,95 760,74 C960,58 1100,86 1200,72 L1200,90 L0,90 Z"/></svg>
+</header>
+
+<nav class="quarter-nav">
+  <a href="#q1">Q1 · LEARN IT</a>
+  <a href="#q2">Q2 · LIVE IT</a>
+  <a href="#q3">Q3 · TEST IT</a>
+  <a href="#q4">Q4 · KEEP IT</a>
+  <a href="#share" class="share-btn">SHARE YOUR STORY</a>
+</nav>
+
+<div class="howto"><div class="box"><b>HOW TO SCAN A QR CODE:</b> open your phone's camera, point it at the code in your journal, and tap the link that appears. Joining mid-year? You're not behind — review the Values tab in your journal, then jump in at the current week.</div></div>
+
+<section class="quarter" id="q1">
+<header class="q-head">
+  <div class="q-burst-wrap"><svg class="burst" viewBox="0 0 100 100" aria-hidden="true"><g fill="currentColor"><circle cx="50" cy="50" r="7"/>
+<g id="r"><path d="M48 38 L50 12 L52 38 Z"/></g>
+<use href="#r" transform="rotate(30 50 50)"/><use href="#r" transform="rotate(60 50 50)"/><use href="#r" transform="rotate(90 50 50)"/><use href="#r" transform="rotate(120 50 50)"/><use href="#r" transform="rotate(150 50 50)"/><use href="#r" transform="rotate(180 50 50)"/><use href="#r" transform="rotate(210 50 50)"/><use href="#r" transform="rotate(240 50 50)"/><use href="#r" transform="rotate(270 50 50)"/><use href="#r" transform="rotate(300 50 50)"/><use href="#r" transform="rotate(330 50 50)"/></g></svg><div class="q-badge"><div class="q-num">QUARTER 1</div><div class="q-bar"></div><h2>LEARN IT</h2><div class="q-bar"></div><p>This quarter, we're getting acquainted with our values.</p></div></div>
+  <p class="q-dates">January – March 2027</p>
+</header>
+<div class="grid"><article class="week" id="week-1">
+<div class="wk-head"><span class="wk-date">Jan 4</span><span class="wk-day">WEEK 1</span></div>
+<h3>Serve First — The Compass That Finds People</h3>
+<p>Of our five values, Serve First is at the top of the list. To be service-oriented is to carry a compass needle that keeps turning toward whoever needs help next — and “first” means before the request, before the problem grows, before anyone has to speak up.</p>
+<div class="wk-links"><a class="wk-link gd" href="http://youtu.be/nlpYab6HD6I" target="_blank" rel="noopener">▶ Go deeper: Evrett on Serve First</a></div>
+<div class="wk-foot"><span>WEEK 1</span><span class="wk-val"><span class="ic">♥</span>SERVE FIRST</span></div>
+</article><article class="week" id="week-2">
+<div class="wk-head"><span class="wk-date">Jan 11</span><span class="wk-day">WEEK 2</span></div>
+<h3>Connect with Others as People, Not Tasks</h3>
+<p>A task is something to complete and move on from. People have whole stories. At The Grand in Broomfield, the Apollo memory care team prints math worksheets for a retired teacher to grade every day — because knowing someone means building their days around who they&#x27;ve always been.</p>
+<div class="wk-links"><a class="wk-link story" href="https://forms.gle/cEMaHeuP4gcvGSdMA" target="_blank" rel="noopener">✎ Share a personal story</a></div>
+<div class="wk-foot"><span>WEEK 2</span><span class="wk-val"><span class="ic">♥</span>SERVE FIRST</span></div>
+</article><article class="week" id="week-3">
+<div class="wk-head"><span class="wk-date">Jan 18</span><span class="wk-day">WEEK 3</span></div>
+<h3>Build Trust — One Brick at a Time</h3>
+<p>Trust isn&#x27;t declared; it&#x27;s constructed slowly, in a hundred small moments that stack like bricks. Say you&#x27;ll be back at three o&#x27;clock — and be back at three o&#x27;clock. Do it enough times and people can count on you without thinking about it.</p>
+<div class="wk-links"><a class="wk-link gd" href="http://youtu.be/-_i7V282Uow" target="_blank" rel="noopener">▶ Go deeper: Evrett on Build Trust</a></div>
+<div class="wk-foot"><span>WEEK 3</span><span class="wk-val"><span class="ic">◆</span>BUILD TRUST</span></div>
+</article><article class="week" id="week-4">
+<div class="wk-head"><span class="wk-date">Jan 25</span><span class="wk-day">WEEK 4</span></div>
+<h3>Act Like a “Somebody”</h3>
+<p>We&#x27;ve all thought: somebody should take care of that. At Courtyard at Jamestown, Kathy didn&#x27;t wait for a committee — she cataloged over 2,000 books and became the community&#x27;s volunteer librarian. Be the somebody.</p>
+<div class="wk-links"><a class="wk-link peer" href="https://forms.gle/jwzVREzVGmh9urP68" target="_blank" rel="noopener">★ Recognize a peer — know someone who acts like a somebody?</a></div>
+<div class="wk-foot"><span>WEEK 4</span><span class="wk-val"><span class="ic">◆</span>BUILD TRUST</span></div>
+</article><article class="week" id="week-5">
+<div class="wk-head"><span class="wk-date">Feb 1</span><span class="wk-day">WEEK 5</span></div>
+<h3>Own It — Claim It Like It&#x27;s Yours</h3>
+<p>We take responsibility for our actions and our results — and we treat what&#x27;s ours differently. Ownership is noticing something that belongs to no one, like an empty bird feeder outside the dining room window, and making it yours.</p>
+<div class="wk-links"><a class="wk-link gd" href="http://youtu.be/th8ru8d8pLw" target="_blank" rel="noopener">▶ Go deeper: Evrett on Own It</a></div>
+<div class="wk-foot"><span>WEEK 5</span><span class="wk-val"><span class="ic">●</span>OWN IT</span></div>
+</article><article class="week" id="week-6">
+<div class="wk-head"><span class="wk-date">Feb 8</span><span class="wk-day">WEEK 6</span></div>
+<h3>Valentine&#x27;s Day — Jack &amp; Lavine, and the Day of Giving</h3>
+<p>Forty-seven years after a dance at a roller rink, Jack and Lavine are Mr. and Mrs. Lincoln Court — still showing up for people, even when it costs them something. This week, the Foundation&#x27;s Annual Day of Giving silent auction runs Monday through Thursday.</p>
+<div class="wk-links"><a class="wk-link fnd" href="https://dayofgiving2027.givesmart.com" target="_blank" rel="noopener">♥ Day of Giving — details &amp; silent auction</a></div>
+<div class="wk-foot"><span>WEEK 6</span><span class="wk-val"><span class="ic">✦</span>SPECIAL</span></div>
+</article><article class="week" id="week-7">
+<div class="wk-head"><span class="wk-date">Feb 15</span><span class="wk-day">WEEK 7</span></div>
+<h3>Do the Hard Things — Swallow the Frog</h3>
+<p>Take the hardest, ugliest thing on your list and do it first. The conversation that needed to happen last week is harder this week. Ron, Stellar&#x27;s Regional Maintenance Director, runs at the projects nobody volunteers for — and it&#x27;s contagious. Rock check-in week for team members.</p>
+
+<div class="wk-foot"><span>WEEK 7</span><span class="wk-val"><span class="ic">●</span>OWN IT</span></div>
+</article><article class="week" id="week-8">
+<div class="wk-head"><span class="wk-date">Feb 22</span><span class="wk-day">WEEK 8</span></div>
+<h3>Deliver Excellence — Legacy in the Details</h3>
+<p>The only value that distinctly looks years ahead: excellence today creates a legacy tomorrow. It&#x27;s turning the fullest blooms to face the room — caring about the parts that could be skipped because they&#x27;d fly under most radars.</p>
+<div class="wk-links"><a class="wk-link gd" href="https://youtu.be/eElTNJo8Z7Q" target="_blank" rel="noopener">▶ Go deeper: Evrett on Deliver Excellence</a></div>
+<div class="wk-foot"><span>WEEK 8</span><span class="wk-val"><span class="ic">★</span>DELIVER EXCELLENCE</span></div>
+</article><article class="week" id="week-9">
+<div class="wk-head"><span class="wk-date">Mar 1</span><span class="wk-day">WEEK 9</span></div>
+<h3>Act Like a Professional — “Dress Sharp, Feel Sharp, Play Sharp”</h3>
+<p>Marcia, one of Stellar&#x27;s original executive directors, inherited a community at 72% occupancy and said she&#x27;d turn it around in 18–24 months. She did it in 19. Her saying still hangs at the Resource Center today.</p>
+<div class="wk-links"><a class="wk-link gd" href="http://youtu.be/ArJ_c0Y9Aks" target="_blank" rel="noopener">▶ Go deeper: “Look Sharp!” with Evrett</a></div>
+<div class="wk-foot"><span>WEEK 9</span><span class="wk-val"><span class="ic">★</span>DELIVER EXCELLENCE</span></div>
+</article><article class="week" id="week-10">
+<div class="wk-head"><span class="wk-date">Mar 8</span><span class="wk-day">WEEK 10</span></div>
+<h3>Spread Joy — The Important Word Is “Spread”</h3>
+<p>Joy on its own is a feeling; this value asks us to move it from ourselves to the people around us. Like the daughter who leaves a trail of small, good moments — a hello, a treat for the front desk, one for the golden retriever — on her way to visit her mom.</p>
+<div class="wk-links"><a class="wk-link gd" href="https://youtu.be/rsUKkhqHLWc" target="_blank" rel="noopener">▶ Go deeper: Evrett on Spread Joy</a></div>
+<div class="wk-foot"><span>WEEK 10</span><span class="wk-val"><span class="ic">☀</span>SPREAD JOY</span></div>
+</article><article class="week" id="week-11">
+<div class="wk-head"><span class="wk-date">Mar 15</span><span class="wk-day">WEEK 11</span></div>
+<h3>World Down Syndrome Day — Milo&#x27;s Project</h3>
+<p>Milo&#x27;s Project began with co-founder Adam Benton and his son Milo: real jobs, real value, for people with awesome abilities. Ask anyone at the Resource Center about Camille&#x27;s bright yellow snack cart and the handwritten notes on every treat — the room lights up.</p>
+<div class="wk-links"><a class="wk-link fnd" href="https://youtu.be/xbaYN6Q2P3Q" target="_blank" rel="noopener">▶ Watch: Milo&#x27;s Project</a></div>
+<div class="wk-foot"><span>WEEK 11</span><span class="wk-val"><span class="ic">✦</span>SPECIAL</span></div>
+</article><article class="week" id="week-12">
+<div class="wk-head"><span class="wk-date">Mar 22</span><span class="wk-day">WEEK 12</span></div>
+<h3>Act Like a “Bucket Filler”</h3>
+<p>Every interaction fills someone&#x27;s bucket or drains it. Janet has been the concierge at Winslow Court for over 20 years — the hug before every tour ends, the gift handed over personally. She doesn&#x27;t try to be the warmest person in the room. She just is.</p>
+<div class="wk-links"><a class="wk-link peer" href="https://forms.gle/jwzVREzVGmh9urP68" target="_blank" rel="noopener">★ Recognize a bucket filler</a></div>
+<div class="wk-foot"><span>WEEK 12</span><span class="wk-val"><span class="ic">☀</span>SPREAD JOY</span></div>
+</article><article class="week" id="week-13">
+<div class="wk-head"><span class="wk-date">Mar 29</span><span class="wk-day">WEEK 13</span></div>
+<h3>Commitment Week — Choose Your Personal Actions</h3>
+<p>End of the quarter. Reflect on one value per day and choose a daily habit for each: “I Spread Joy by ___.” Small enough to do every day, specific enough to measure. Write them in pencil in the Values tab — as you evolve, so can they.</p>
+
+<div class="wk-foot"><span>WEEK 13</span><span class="wk-val"><span class="ic">✦</span>COMMITMENT WEEK</span></div>
+</article></div>
+</section>
+<section class="quarter" id="q2">
+<header class="q-head">
+  <div class="q-burst-wrap"><svg class="burst" viewBox="0 0 100 100" aria-hidden="true"><g fill="currentColor"><circle cx="50" cy="50" r="7"/>
+<g id="r"><path d="M48 38 L50 12 L52 38 Z"/></g>
+<use href="#r" transform="rotate(30 50 50)"/><use href="#r" transform="rotate(60 50 50)"/><use href="#r" transform="rotate(90 50 50)"/><use href="#r" transform="rotate(120 50 50)"/><use href="#r" transform="rotate(150 50 50)"/><use href="#r" transform="rotate(180 50 50)"/><use href="#r" transform="rotate(210 50 50)"/><use href="#r" transform="rotate(240 50 50)"/><use href="#r" transform="rotate(270 50 50)"/><use href="#r" transform="rotate(300 50 50)"/><use href="#r" transform="rotate(330 50 50)"/></g></svg><div class="q-badge"><div class="q-num">QUARTER 2</div><div class="q-bar"></div><h2>LIVE IT</h2><div class="q-bar"></div><p>This quarter, we're making our values even more practical.</p></div></div>
+  <p class="q-dates">April – June 2027</p>
+</header>
+<div class="grid"><article class="week" id="week-14">
+<div class="wk-head"><span class="wk-date">Apr 5</span><span class="wk-day">WEEK 14</span></div>
+<h3>Serve First, Role by Role</h3>
+<p>Q2 turns each value practical. For a caregiver it&#x27;s the jar opened before anyone asks; for a community member, the piece of pie brought back for the neighbor who missed dinner; for family, the cart moved out of someone&#x27;s path on the way in.</p>
+<div class="wk-links"><a class="wk-link gd" href="https://www.shrm.org/executive-network/insights/servant-leadership-philosophy-people-first-leadership" target="_blank" rel="noopener">📄 Go deeper: Servant leadership — people-first leadership (SHRM)</a></div>
+<div class="wk-foot"><span>WEEK 14</span><span class="wk-val"><span class="ic">♥</span>SERVE FIRST</span></div>
+</article><article class="week" id="week-15">
+<div class="wk-head"><span class="wk-date">Apr 12</span><span class="wk-day">WEEK 15</span></div>
+<h3>Anticipate Needs Before Being Asked</h3>
+<p>Great service is proactive: we observe, then serve. At La Sonora at Dove Mountain, JJ&#x27;s resident-run welcome committee has a basket waiting before a new neighbor unpacks a single box — and a seat saved at dinner that first night.</p>
+<div class="wk-links"><a class="wk-link story" href="https://forms.gle/cEMaHeuP4gcvGSdMA" target="_blank" rel="noopener">✎ Share a story: a time you anticipated a need</a></div>
+<div class="wk-foot"><span>WEEK 15</span><span class="wk-val"><span class="ic">♥</span>SERVE FIRST</span></div>
+</article><article class="week" id="week-16">
+<div class="wk-head"><span class="wk-date">Apr 19</span><span class="wk-day">WEEK 16</span></div>
+<h3>Build Trust, Role by Role</h3>
+<p>The van driver&#x27;s “ten minutes behind, hang tight!” call. The maintenance tech who explains what was really going on. The volunteer who shows up the same on a rainy Thursday as a sunny Friday. Trust is built where people can see it.</p>
+<div class="wk-links"><a class="wk-link gd" href="https://www.matttownsend.com/blog/building-emotional-safety-in-relationships" target="_blank" rel="noopener">📄 Go deeper: Building emotional safety (Matt Townsend)</a></div>
+<div class="wk-foot"><span>WEEK 16</span><span class="wk-val"><span class="ic">◆</span>BUILD TRUST</span></div>
+</article><article class="week" id="week-17">
+<div class="wk-head"><span class="wk-date">Apr 26</span><span class="wk-day">WEEK 17</span></div>
+<h3>Lead with Principles, Not Rules</h3>
+<p>Ray Henderson loves the Nordstrom notecard: one goal, one principle — use good judgment in all situations. At Stellar, our values are the notecard. We don&#x27;t need a rulebook to tell us how to treat each other. We already know.</p>
+<div class="wk-links"><a class="wk-link fnd" href="https://stellarliving.com/foundation/" target="_blank" rel="noopener">♥ The Foundation: four programs, one mission</a></div>
+<div class="wk-foot"><span>WEEK 17</span><span class="wk-val"><span class="ic">◆</span>BUILD TRUST</span></div>
+</article><article class="week" id="week-18">
+<div class="wk-head"><span class="wk-date">May 3</span><span class="wk-day">WEEK 18</span></div>
+<h3>Own It, Role by Role</h3>
+<p>The nurse who says “leave it with me” and chases the answer through three phone calls. The accountant who won&#x27;t let a number go until it reconciles. Owning it starts with a simple declaration: I&#x27;ve got this.</p>
+<div class="wk-links"><a class="wk-link gd" href="https://youarecapableofmore.com/own-it-every-day/" target="_blank" rel="noopener">📄 Go deeper: Own it every day</a></div>
+<div class="wk-foot"><span>WEEK 18</span><span class="wk-val"><span class="ic">●</span>OWN IT</span></div>
+</article><article class="week" id="week-19">
+<div class="wk-head"><span class="wk-date">May 10</span><span class="wk-day">WEEK 19</span></div>
+<h3>Clinical Week — Called to Care</h3>
+<p>At The Gardens at Scottsdale, a server became a caregiver, then a med tech, then a nurse — and now leads Health &amp; Wellness 15 years later. To everyone delivering clinical care: we see what you do, we know what it costs, and we are grateful.</p>
+<div class="wk-links"><a class="wk-link peer" href="https://forms.gle/jwzVREzVGmh9urP68" target="_blank" rel="noopener">★ Recognize someone awesome on your clinical team</a></div>
+<div class="wk-foot"><span>WEEK 19</span><span class="wk-val"><span class="ic">✦</span>SPECIAL</span></div>
+</article><article class="week" id="week-20">
+<div class="wk-head"><span class="wk-date">May 17</span><span class="wk-day">WEEK 20</span></div>
+<h3>Set and Achieve Goals — Marie&#x27;s Nine Minutes</h3>
+<p>Vague intentions disappear; SMART goals get hit. Marie, a Family Advisor at Creekside, calls every family back within nine minutes — a bar nobody assigned and she holds anyway, because a family is waiting on the other end. Rock check-in week.</p>
+<div class="wk-links"><a class="wk-link rock" href="https://youtu.be/6x7cvAyqgbw" target="_blank" rel="noopener">▶ EOS Rocks: Goals sharpen the saw</a></div>
+<div class="wk-foot"><span>WEEK 20</span><span class="wk-val"><span class="ic">●</span>OWN IT</span></div>
+</article><article class="week" id="week-21">
+<div class="wk-head"><span class="wk-date">May 24</span><span class="wk-day">WEEK 21</span></div>
+<h3>Memorial Day — Dennis and the Wish of a Lifetime</h3>
+<p>Drafted into the Navy Seabees, a bull rider for 50 years, and today a gentle presence at Copper Creek who visits memory care with his service dog, Johnny Cash. The Foundation sent Dennis back to the National Finals Rodeo with his son beside him.</p>
+<div class="wk-links"><a class="wk-link fnd" href="https://fundraise.givesmart.com/form/OJ0zSQ?vid=1s6z6l" target="_blank" rel="noopener">♥ Give in honor of a veteran</a></div>
+<div class="wk-foot"><span>WEEK 21</span><span class="wk-val"><span class="ic">✦</span>SPECIAL</span></div>
+</article><article class="week" id="week-22">
+<div class="wk-head"><span class="wk-date">May 31</span><span class="wk-day">WEEK 22</span></div>
+<h3>Deliver Excellence, Role by Role</h3>
+<p>The housekeeper who spots the cobweb on the fan in the room nobody uses — and gets the ladder anyway. The gap between good and excellent may be a detail only you can see.</p>
+<div class="wk-links"><a class="wk-link gd" href="https://www.youtube.com/watch?v=U-duwnmurPg" target="_blank" rel="noopener">▶ Go deeper on excellence</a></div>
+<div class="wk-foot"><span>WEEK 22</span><span class="wk-val"><span class="ic">★</span>DELIVER EXCELLENCE</span></div>
+</article><article class="week" id="week-23">
+<div class="wk-head"><span class="wk-date">Jun 7</span><span class="wk-day">WEEK 23</span></div>
+<h3>Practice Great Hospitality</h3>
+<p>Chefs who keep family recipe cards. A menu that reads Stebel Family Meatloaf. And Brady spotting Joan by the donut table: “Would you like a fresh cup of coffee with that?” — “You know me too well.” Seen, known, valued.</p>
+<div class="wk-links"><a class="wk-link story" href="https://forms.gle/cEMaHeuP4gcvGSdMA" target="_blank" rel="noopener">✎ Share a story: a time you practiced great hospitality</a></div>
+<div class="wk-foot"><span>WEEK 23</span><span class="wk-val"><span class="ic">★</span>DELIVER EXCELLENCE</span></div>
+</article><article class="week" id="week-24">
+<div class="wk-head"><span class="wk-date">Jun 14</span><span class="wk-day">WEEK 24</span></div>
+<h3>Spread Joy, Role by Role</h3>
+<p>The bingo hall gets loud enough that people in the hallway pull up a chair. A gift to the Foundation makes one wish come true and the whole community lights up watching. Joy that young — or that generous — is impossible to contain.</p>
+<div class="wk-links"><a class="wk-link gd" href="https://www.mayoclinic.org/healthy-lifestyle/stress-management/in-depth/positive-thinking/art-20043950" target="_blank" rel="noopener">📄 Go deeper: The power of positive thinking (Mayo Clinic)</a></div>
+<div class="wk-foot"><span>WEEK 24</span><span class="wk-val"><span class="ic">☀</span>SPREAD JOY</span></div>
+</article><article class="week" id="week-25">
+<div class="wk-head"><span class="wk-date">Jun 21</span><span class="wk-day">WEEK 25</span></div>
+<h3>Celebrate Everything</h3>
+<p>At Bear Creek it&#x27;s Twinkie Day, Derby races on inflatable horses, and a slip-and-slide because the sun came out. Someone looks at an ordinary day and asks: what if we made this into something?</p>
+<div class="wk-links"><a class="wk-link peer" href="https://forms.gle/jwzVREzVGmh9urP68" target="_blank" rel="noopener">★ Recognize someone who celebrates everything</a></div>
+<div class="wk-foot"><span>WEEK 25</span><span class="wk-val"><span class="ic">☀</span>SPREAD JOY</span></div>
+</article><article class="week" id="week-26">
+<div class="wk-head"><span class="wk-date">Jun 28</span><span class="wk-day">WEEK 26</span></div>
+<h3>Commitment Week — Revisit Your Personal Actions</h3>
+<p>Half the year behind us. Revisit the personal actions you wrote in pencil — keep one, tweak one, trade one out. New to the journal? Welcome; this is a perfect week to write your first.</p>
+
+<div class="wk-foot"><span>WEEK 26</span><span class="wk-val"><span class="ic">✦</span>COMMITMENT WEEK</span></div>
+</article></div>
+</section>
+<section class="quarter" id="q3">
+<header class="q-head">
+  <div class="q-burst-wrap"><svg class="burst" viewBox="0 0 100 100" aria-hidden="true"><g fill="currentColor"><circle cx="50" cy="50" r="7"/>
+<g id="r"><path d="M48 38 L50 12 L52 38 Z"/></g>
+<use href="#r" transform="rotate(30 50 50)"/><use href="#r" transform="rotate(60 50 50)"/><use href="#r" transform="rotate(90 50 50)"/><use href="#r" transform="rotate(120 50 50)"/><use href="#r" transform="rotate(150 50 50)"/><use href="#r" transform="rotate(180 50 50)"/><use href="#r" transform="rotate(210 50 50)"/><use href="#r" transform="rotate(240 50 50)"/><use href="#r" transform="rotate(270 50 50)"/><use href="#r" transform="rotate(300 50 50)"/><use href="#r" transform="rotate(330 50 50)"/></g></svg><div class="q-badge"><div class="q-num">QUARTER 3</div><div class="q-bar"></div><h2>TEST IT</h2><div class="q-bar"></div><p>This quarter, we're practicing our values under pressure.</p></div></div>
+  <p class="q-dates">July – September 2027</p>
+</header>
+<div class="grid"><article class="week" id="week-27">
+<div class="wk-head"><span class="wk-date">Jul 5</span><span class="wk-day">WEEK 27</span></div>
+<h3>The Tough Truth About Serve First</h3>
+<p>Q3 meets our values under pressure. The tough truth: serving first usually requires sacrifice — stopping for real when a community member wants to share her granddaughter&#x27;s wedding photo, even on the day everything got shoved to the afternoon.</p>
+<div class="wk-links"><a class="wk-link gd" href="https://lionmagazine.org/articles/the-science-of-service/" target="_blank" rel="noopener">📄 Go deeper: The science of service</a></div>
+<div class="wk-foot"><span>WEEK 27</span><span class="wk-val"><span class="ic">♥</span>SERVE FIRST</span></div>
+</article><article class="week" id="week-28">
+<div class="wk-head"><span class="wk-date">Jul 12</span><span class="wk-day">WEEK 28</span></div>
+<h3>Start with “Yes” and Seek Solutions — Maribel&#x27;s Story</h3>
+<p>When fire made Maribel&#x27;s home unlivable, McKay and the Foundation&#x27;s Local Love program answered before knowing how: a hotel that night, two months&#x27; rent on a new apartment after. Starting with yes doesn&#x27;t always mean ending with yes — it means asking what&#x27;s possible first.</p>
+<div class="wk-links"><span class="wk-link pending">▶ Watch Maribel&#x27;s story (video coming soon)</span></div>
+<div class="wk-foot"><span>WEEK 28</span><span class="wk-val"><span class="ic">♥</span>SERVE FIRST</span></div>
+</article><article class="week" id="week-29">
+<div class="wk-head"><span class="wk-date">Jul 19</span><span class="wk-day">WEEK 29</span></div>
+<h3>The Tough Truth About Build Trust — Avoid Friendly Fire</h3>
+<p>A wall that took months to raise can tumble in a second. Friendly fire — taking a shot at someone who isn&#x27;t in the room — is one of the quickest ways to spend trust. Not taking the shot is quietly heroic, and we do it anyway.</p>
+<div class="wk-links"><a class="wk-link gd" href="https://www.youtube.com/watch?v=ForatXU15Wk" target="_blank" rel="noopener">▶ Go deeper on trust</a></div>
+<div class="wk-foot"><span>WEEK 29</span><span class="wk-val"><span class="ic">◆</span>BUILD TRUST</span></div>
+</article><article class="week" id="week-30">
+<div class="wk-head"><span class="wk-date">Jul 26</span><span class="wk-day">WEEK 30</span></div>
+<h3>Stellar&#x27;s 15th Birthday — Earn Your Keeper Status</h3>
+<p>In honor of Stellar&#x27;s birthday: Carla at Bear Creek since 2001, Jeff at Winslow Court since 2007, Dave from HR Director to COO — eight keepers we&#x27;d fight to keep. Happy birthday, Stellar Nation!</p>
+<div class="wk-links"><a class="wk-link peer" href="https://forms.gle/jwzVREzVGmh9urP68" target="_blank" rel="noopener">★ Recognize a keeper</a></div>
+<div class="wk-foot"><span>WEEK 30</span><span class="wk-val"><span class="ic">◆</span>BUILD TRUST</span></div>
+</article><article class="week" id="week-31">
+<div class="wk-head"><span class="wk-date">Aug 2</span><span class="wk-day">WEEK 31</span></div>
+<h3>The Tough Truth About Own It — Owning Mistakes</h3>
+<p>When something goes wrong, the reflex is the explanation. Owning it is shorter: “That one&#x27;s on me. Here&#x27;s how I&#x27;ll help you fix it.” Sometimes doing what&#x27;s right means admitting we were wrong.</p>
+<div class="wk-links"><a class="wk-link gd" href="https://www.statueofresponsibility.org/the-power-of-personal-responsibility" target="_blank" rel="noopener">📄 Go deeper: The power of personal responsibility</a></div>
+<div class="wk-foot"><span>WEEK 31</span><span class="wk-val"><span class="ic">●</span>OWN IT</span></div>
+</article><article class="week" id="week-32">
+<div class="wk-head"><span class="wk-date">Aug 9</span><span class="wk-day">WEEK 32</span></div>
+<h3>Think and Act Above the Line</h3>
+<p>Two CNAs called off the morning an 87-year-old gentleman was moving out. Evrett Benton didn&#x27;t delegate — he helped him shower, shave, dress, and finish packing before his daughter arrived. The question isn&#x27;t whose job it is. It&#x27;s: what does this moment need?</p>
+<div class="wk-links"><a class="wk-link story" href="https://forms.gle/cEMaHeuP4gcvGSdMA" target="_blank" rel="noopener">✎ Share a story: a time you acted above the line</a></div>
+<div class="wk-foot"><span>WEEK 32</span><span class="wk-val"><span class="ic">●</span>OWN IT</span></div>
+</article><article class="week" id="week-33">
+<div class="wk-head"><span class="wk-date">Aug 16</span><span class="wk-day">WEEK 33</span></div>
+<h3>The Tough Truth About Deliver Excellence</h3>
+<p>Some days you don&#x27;t have what you need — and right on cue, “good enough” comes into view. The corners we cut almost never show up today; they show up later, for someone else. Good enough is easy to grab but hard to erase.</p>
+<div class="wk-links"><a class="wk-link gd" href="https://www.fastcompany.com/91492999/5-things-to-remember-on-your-journey-to-excellence" target="_blank" rel="noopener">📄 Go deeper: 5 things to remember on the journey to excellence (Fast Company)</a></div>
+<div class="wk-foot"><span>WEEK 33</span><span class="wk-val"><span class="ic">★</span>DELIVER EXCELLENCE</span></div>
+</article><article class="week" id="week-34">
+<div class="wk-head"><span class="wk-date">Aug 23</span><span class="wk-day">WEEK 34</span></div>
+<h3>Use Resources Wisely</h3>
+<p>A year of collected wine corks became birdhouses at North Star. The Palms at Sun City noticed residents needed help — just not four hours of it — and built Independent Plus, billed in 15-minute increments by people they already trust.</p>
+<div class="wk-links"><a class="wk-link gd" href="https://www.youtube.com/watch?v=v5FL9VTBZzQ" target="_blank" rel="noopener">▶ Go deeper</a></div>
+<div class="wk-foot"><span>WEEK 34</span><span class="wk-val"><span class="ic">★</span>DELIVER EXCELLENCE</span></div>
+</article><article class="week" id="week-35">
+<div class="wk-head"><span class="wk-date">Aug 30</span><span class="wk-day">WEEK 35</span></div>
+<h3>Labor Day — Thank You, Crimson</h3>
+<p>Our communities don&#x27;t shut down for holidays — they come to life. Crimson, a night-shift CNA at Willow Tree in Delta, Colorado, took the shift most people avoid and gives her best at 2 a.m. anyway. That&#x27;s who your community gets, no matter when you show up.</p>
+<div class="wk-links"><a class="wk-link peer" href="https://forms.gle/jwzVREzVGmh9urP68" target="_blank" rel="noopener">★ Recognize someone who works the holidays</a></div>
+<div class="wk-foot"><span>WEEK 35</span><span class="wk-val"><span class="ic">✦</span>SPECIAL</span></div>
+</article><article class="week" id="week-36">
+<div class="wk-head"><span class="wk-date">Sep 6</span><span class="wk-day">WEEK 36</span></div>
+<h3>The Tough Truth About Spread Joy — Assume Positive Intent</h3>
+<p>Some days joy is hard to come by. On those days: pause before you react, don&#x27;t jump to the worst perception, and believe people are doing their best with what they have. Give others what you hope they&#x27;d give you — the benefit of the doubt.</p>
+<div class="wk-links"><a class="wk-link gd" href="https://community.thriveglobal.com/assume-positive-intent-improve-success-by-shifting-perspective/" target="_blank" rel="noopener">📄 Go deeper: Assume positive intent</a></div>
+<div class="wk-foot"><span>WEEK 36</span><span class="wk-val"><span class="ic">☀</span>SPREAD JOY</span></div>
+</article><article class="week" id="week-37">
+<div class="wk-head"><span class="wk-date">Sep 13</span><span class="wk-day">WEEK 37</span></div>
+<h3>Approach Challenges with Optimism — Tony&#x27;s “It&#x27;s My Pleasure”</h3>
+<p>Tony from maintenance at Lakewood Reserve was setting up cable for a community member having a very hard day — and she shared her thoughts freely. He didn&#x27;t bristle or rush. He smiled, kept working, and chose warmth in a moment that didn&#x27;t make it easy.</p>
+<div class="wk-links"><a class="wk-link story" href="https://forms.gle/cEMaHeuP4gcvGSdMA" target="_blank" rel="noopener">✎ Share a story: optimism in a hard moment</a></div>
+<div class="wk-foot"><span>WEEK 37</span><span class="wk-val"><span class="ic">☀</span>SPREAD JOY</span></div>
+</article><article class="week" id="week-38">
+<div class="wk-head"><span class="wk-date">Sep 20</span><span class="wk-day">WEEK 38</span></div>
+<h3>World Gratitude Day — Gratitude in Action</h3>
+<p>At Thunderbird in Glendale, Arizona, the Bird&#x27;s Nest Bistro runs on community members — and every dollar it earns goes into an appreciation fund shared at year&#x27;s end with the servers, housekeepers, drivers, and maintenance crew. Not just feeling gratitude. Doing something with it.</p>
+<div class="wk-links"><a class="wk-link gd" href="https://jamesclear.com/gratitude-habit" target="_blank" rel="noopener">📄 Go deeper: The gratitude habit (James Clear)</a></div>
+<div class="wk-foot"><span>WEEK 38</span><span class="wk-val"><span class="ic">✦</span>SPECIAL</span></div>
+</article><article class="week" id="week-39">
+<div class="wk-head"><span class="wk-date">Sep 27</span><span class="wk-day">WEEK 39</span></div>
+<h3>Commitment Week — Q3 Reflection</h3>
+<p>Score your Q3 Rocks — Win or Learn. Revisit your personal actions and sharpen them for the final stretch of the year.</p>
+
+<div class="wk-foot"><span>WEEK 39</span><span class="wk-val"><span class="ic">✦</span>COMMITMENT WEEK</span></div>
+</article></div>
+</section>
+<section class="quarter" id="q4">
+<header class="q-head">
+  <div class="q-burst-wrap"><svg class="burst" viewBox="0 0 100 100" aria-hidden="true"><g fill="currentColor"><circle cx="50" cy="50" r="7"/>
+<g id="r"><path d="M48 38 L50 12 L52 38 Z"/></g>
+<use href="#r" transform="rotate(30 50 50)"/><use href="#r" transform="rotate(60 50 50)"/><use href="#r" transform="rotate(90 50 50)"/><use href="#r" transform="rotate(120 50 50)"/><use href="#r" transform="rotate(150 50 50)"/><use href="#r" transform="rotate(180 50 50)"/><use href="#r" transform="rotate(210 50 50)"/><use href="#r" transform="rotate(240 50 50)"/><use href="#r" transform="rotate(270 50 50)"/><use href="#r" transform="rotate(300 50 50)"/><use href="#r" transform="rotate(330 50 50)"/></g></svg><div class="q-badge"><div class="q-num">QUARTER 4</div><div class="q-bar"></div><h2>KEEP IT</h2><div class="q-bar"></div><p>This quarter, we're living our values more naturally.</p></div></div>
+  <p class="q-dates">October – December 2027</p>
+</header>
+<div class="grid"><article class="week" id="week-40">
+<div class="wk-head"><span class="wk-date">Oct 4</span><span class="wk-day">WEEK 40</span></div>
+<h3>Adopt a Community-First Approach — Why the Home Office Became the Resource Center</h3>
+<p>Adam Benton starts with a name change: home isn&#x27;t an office in Midvale — it&#x27;s our communities. Stellar flipped the org chart upside down, with community members and the people who care for them on top. Before you act, ask: is this best for our community?</p>
+<div class="wk-links"><a class="wk-link fnd" href="https://stellarliving.com/foundation/" target="_blank" rel="noopener">♥ The Stellar Living Foundation</a></div>
+<div class="wk-foot"><span>WEEK 40</span><span class="wk-val"><span class="ic">♥</span>SERVE FIRST</span></div>
+</article><article class="week" id="week-41">
+<div class="wk-head"><span class="wk-date">Oct 11</span><span class="wk-day">WEEK 41</span></div>
+<h3>Keep It — Serve First</h3>
+<p>Our last week with Serve First this year. Review all four behaviors — community-first, start with yes, anticipate needs, people not tasks — and land your Serve First personal action for 2028.</p>
+
+<div class="wk-foot"><span>WEEK 41</span><span class="wk-val"><span class="ic">♥</span>SERVE FIRST</span></div>
+</article><article class="week" id="week-42">
+<div class="wk-head"><span class="wk-date">Oct 18</span><span class="wk-day">WEEK 42</span></div>
+<h3>Seek and Give Feedback with Humility — The Four A&#x27;s</h3>
+<p>Evrett watched a presenter get publicly critiqued by his own boss at a conference — and it was the presenter&#x27;s humble reaction that stayed with him. Stellar has adopted Netflix&#x27;s Four A&#x27;s: aim to assist, make it actionable, appreciate the candor, accept or discard.</p>
+<div class="wk-links"><a class="wk-link peer" href="https://forms.gle/jwzVREzVGmh9urP68" target="_blank" rel="noopener">★ Recognize someone who gives and takes feedback with humility</a></div>
+<div class="wk-foot"><span>WEEK 42</span><span class="wk-val"><span class="ic">◆</span>BUILD TRUST</span></div>
+</article><article class="week" id="week-43">
+<div class="wk-head"><span class="wk-date">Oct 25</span><span class="wk-day">WEEK 43</span></div>
+<h3>Keep It — Build Trust</h3>
+<p>The year&#x27;s final look at Build Trust: bricks laid consistently, friendly fire avoided, principles over rules, keeper status earned, feedback with humility. Time to land your Build Trust action for 2028.</p>
+
+<div class="wk-foot"><span>WEEK 43</span><span class="wk-val"><span class="ic">◆</span>BUILD TRUST</span></div>
+</article><article class="week" id="week-44">
+<div class="wk-head"><span class="wk-date">Nov 1</span><span class="wk-day">WEEK 44</span></div>
+<h3>Develop Self-Awareness — The Two Circles</h3>
+<p>One circle is how you see yourself; the dotted one is how others see you. The closer they overlap, the more self-aware you are. Try it: after a meeting, ask someone, “How did I come across?” — and notice which feedback you want to argue with.</p>
+<div class="wk-links"><a class="wk-link story" href="https://forms.gle/cEMaHeuP4gcvGSdMA" target="_blank" rel="noopener">✎ Share: what helps you be more self-aware?</a></div>
+<div class="wk-foot"><span>WEEK 44</span><span class="wk-val"><span class="ic">●</span>OWN IT</span></div>
+</article><article class="week" id="week-45">
+<div class="wk-head"><span class="wk-date">Nov 8</span><span class="wk-day">WEEK 45</span></div>
+<h3>Keep It — Own It</h3>
+<p>Reviewing the year in ownership — hard things, goals, self-awareness, above the line — and making your Own It personal action permanent for 2028.</p>
+
+<div class="wk-foot"><span>WEEK 45</span><span class="wk-val"><span class="ic">●</span>OWN IT</span></div>
+</article><article class="week" id="week-46">
+<div class="wk-head"><span class="wk-date">Nov 15</span><span class="wk-day">WEEK 46</span></div>
+<h3>Continuously Improve How Work Gets Done — Progress Over Perfection</h3>
+<p>Nick has managed Stellar&#x27;s online presence for over a decade, and his work is never finished — just continually improved. The recipe you&#x27;re still tweaking after 30 years, the handoff note a little cleaner each shift. Just start, then adjust on repeat. Q4 Rock check-in week.</p>
+
+<div class="wk-foot"><span>WEEK 46</span><span class="wk-val"><span class="ic">★</span>DELIVER EXCELLENCE</span></div>
+</article><article class="week" id="week-47">
+<div class="wk-head"><span class="wk-date">Nov 22</span><span class="wk-day">WEEK 47</span></div>
+<h3>Thanksgiving — Two Kinds of Family</h3>
+<p>Evrett&#x27;s office walls are covered in family photos — and Stellar exists in part to let families be families again. Jessie at North Star tells every tour: “It sounds cheesy that we&#x27;re family. But when you move in, you will feel it.” Meanwhile Chef Chester warms up his chainsaw for the annual ice sculpture.</p>
+<div class="wk-links"><a class="wk-link peer" href="https://forms.gle/jwzVREzVGmh9urP68" target="_blank" rel="noopener">★ Who makes Stellar feel like family for you?</a></div>
+<div class="wk-foot"><span>WEEK 47</span><span class="wk-val"><span class="ic">✦</span>SPECIAL</span></div>
+</article><article class="week" id="week-48">
+<div class="wk-head"><span class="wk-date">Nov 29</span><span class="wk-day">WEEK 48</span></div>
+<h3>Keep It — Deliver Excellence</h3>
+<p>The year&#x27;s final pass at Deliver Excellence: professionalism, hospitality, wise resources, continuous improvement — and choosing the standard you want to be known for in 2028.</p>
+
+<div class="wk-foot"><span>WEEK 48</span><span class="wk-val"><span class="ic">★</span>DELIVER EXCELLENCE</span></div>
+</article><article class="week" id="week-49">
+<div class="wk-head"><span class="wk-date">Dec 6</span><span class="wk-day">WEEK 49</span></div>
+<h3>Give Back to Support Those in Need — Alexis&#x27;s Story</h3>
+<p>Alexis grew up watching how people at The Oaks talked about her mom. Now she&#x27;s studying nursing at ASU — with a Stellar Scholars scholarship from the Foundation, alongside Robert (pre-med at BYU) and Thienkim (business at Boston University). Ripples of joy, funded by donors like you.</p>
+<div class="wk-links"><a class="wk-link fnd" href="https://stellarliving.com/foundation/" target="_blank" rel="noopener">♥ Foundation programs &amp; how to give</a></div>
+<div class="wk-foot"><span>WEEK 49</span><span class="wk-val"><span class="ic">☀</span>SPREAD JOY</span></div>
+</article><article class="week" id="week-50">
+<div class="wk-head"><span class="wk-date">Dec 13</span><span class="wk-day">WEEK 50</span></div>
+<h3>Keep It — Spread Joy</h3>
+<p>Carrying our most fun value into 2028: celebrating everything, filling buckets, assuming positive intent, giving back, choosing optimism — and locking in your Spread Joy personal action.</p>
+
+<div class="wk-foot"><span>WEEK 50</span><span class="wk-val"><span class="ic">☀</span>SPREAD JOY</span></div>
+</article><article class="week" id="week-51">
+<div class="wk-head"><span class="wk-date">Dec 20</span><span class="wk-day">WEEK 51</span></div>
+<h3>Christmas — Jake&#x27;s Orange</h3>
+<p>Evrett&#x27;s favorite: an English orphanage where every boy&#x27;s only Christmas gift was an orange. When Jake lost his, nine boys each broke off a segment so he&#x27;d have one too. Joy grows when what we give costs us something — and there are missing oranges everywhere this week.</p>
+<div class="wk-links"><a class="wk-link story" href="https://forms.gle/cEMaHeuP4gcvGSdMA" target="_blank" rel="noopener">✎ Share: what has this journal meant to you?</a></div>
+<div class="wk-foot"><span>WEEK 51</span><span class="wk-val"><span class="ic">✦</span>SPECIAL</span></div>
+</article><article class="week" id="week-52">
+<div class="wk-head"><span class="wk-date">Dec 27</span><span class="wk-day">WEEK 52</span></div>
+<h3>Celebration Week — See You in 2028</h3>
+<p>Five minutes a day for 52 weeks is nearly a full day spent becoming who we said we&#x27;d be. Give an award (“Calmest Person in a Crisis”), post your five personal actions where you&#x27;ll see them, and celebrate loudly. Thank you for showing up, Stellar Nation.</p>
+
+<div class="wk-foot"><span>WEEK 52</span><span class="wk-val"><span class="ic">✦</span>COMMITMENT WEEK</span></div>
+</article></div>
+</section>
+
+
+<section class="share-section" id="share">
+  <svg class="waves" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
+<path fill="#f3e3bb" d="M0,55 C200,25 420,80 640,52 C860,26 1040,70 1200,44 L1200,90 L0,90 Z"/>
+<path fill="#e8c87f" d="M0,68 C240,42 460,88 700,62 C920,40 1080,78 1200,58 L1200,90 L0,90 Z"/>
+<path fill="#d9a335" d="M0,80 C260,60 500,95 760,74 C960,58 1100,86 1200,72 L1200,90 L0,90 Z"/></svg>
+  <h2>SHARE YOUR STORY</h2>
+  <div class="g-rule"></div>
+  <p>We want to hear how you're living out Stellar's values. Submit a personal story or recognize a community member, team member, or family member — selected stories will be featured in a future edition of this journal.</p>
+  <div class="share-actions">
+    <a class="primary" href="https://forms.gle/cEMaHeuP4gcvGSdMA" target="_blank" rel="noopener">✎ Submit a Personal Story</a>
+    <a class="secondary" href="https://forms.gle/jwzVREzVGmh9urP68" target="_blank" rel="noopener">★ Recognize a Peer</a>
+  </div>
+</section>
+
+<footer>
+  <div>Stellar Senior Living · <a href="https://stellarliving.com" target="_blank" rel="noopener">stellarliving.com</a> · <a href="https://stellarliving.com/foundation/" target="_blank" rel="noopener">Stellar Living Foundation</a></div>
+  <div class="vals">CULTURE JOURNAL 2027 — SERVE FIRST · BUILD TRUST · OWN IT · DELIVER EXCELLENCE · SPREAD JOY — <em>"Together, we can do more!"</em></div>
+</footer>
+
+<script>
+const sections = document.querySelectorAll('.quarter, .share-section');
+const navLinks = document.querySelectorAll('.quarter-nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 130) current = s.id; });
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+});
+</script>
+</body>
+</html>
